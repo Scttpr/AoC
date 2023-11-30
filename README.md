@@ -1,2 +1,3 @@
-# AoC
-Advent of code repository
+# Advent of Code
+
+Solutions for [Advent of Code](https://adventofcode.com/) yearly event.
