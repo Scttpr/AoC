@@ -17,8 +17,6 @@ fn part_one (input: &[String]) -> u32  {
     input
         .iter()
         .map(|line| line.chars()
-            .collect::<Vec<char>>()
-            .into_iter()
             .filter(|chr| chr.is_numeric())
             .collect::<Vec<char>>()
         )
