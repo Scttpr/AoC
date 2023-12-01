@@ -1,4 +1,4 @@
-use fancy_regex::Regex; 
+use fancy_regex::{Regex, Error}; 
 use crate::parser::{read_input, InputType};
 
 pub fn run () {
@@ -6,7 +6,7 @@ pub fn run () {
 
     let input = read_input(1, &InputType::Full);
     let first_total = part_one(&input);
-    let second_total = part_two(&input);
+    let second_total = part_two(&input).unwrap();
 
     println!("part A calibration total is {first_total}");
     println!("part B calibration total is {second_total}");
@@ -20,23 +20,22 @@ fn part_one (input: &[String]) -> u32  {
             .filter(|chr| chr.is_numeric())
             .collect::<Vec<char>>()
         )
-        .map(get_calibration)
+        .filter_map(get_calibration)
         .sum()
 }
 
-fn part_two (input: &[String]) -> u32 {
-    let re = Regex::new(r"(?<=o)ne|(?<=t)wo|(?<=t)hree|four|five|six|seven|(?<=e)ight|(?<=n)ine|[1-9]")
-        .expect("regex not valid");
+fn part_two (input: &[String]) -> Result<u32, Error> {
+    let re = Regex::new(r"(?<=o)ne|(?<=t)wo|(?<=t)hree|four|five|six|seven|(?<=e)ight|(?<=n)ine|[1-9]")?;
 
-    input.
+    Ok(input.
         iter()
         .map(|line| {
             re.find_iter(line)
                 .filter_map(|m| get_number(m.unwrap().as_str()))
                 .collect::<Vec<char>>()
         })
-        .map(get_calibration)
-        .sum()
+        .filter_map(get_calibration)
+        .sum())
 }
 
 fn get_number(str: &str) -> Option<char> {
@@ -54,11 +53,11 @@ fn get_number(str: &str) -> Option<char> {
     }
 }
 
-fn get_calibration(line: Vec<char>) -> u32 {
-    let first = line.first().expect("line is empty");
-    let last = line.last().expect("line is empty");
+fn get_calibration(line: Vec<char>) -> Option<u32> {
+    let first = line.first()?;
+    let last = line.last()?;
     
     format!("{first}{last}")
         .parse()
-        .expect("number not valid")
+        .ok()
 }
