@@ -1,0 +1,14 @@
+[package]
+name = "aoc"
+version = "0.1.0"
+edition = "2021"
+description = "advent of code solutions"
+license = "MIT"
+repository = "https://github.com/Scttpr/AoC/"
+keywords = ["algorithm"]
+categories = ["Algorithms"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+fancy-regex = "0.12.0"
