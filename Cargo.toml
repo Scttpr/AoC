@@ -12,3 +12,4 @@ categories = ["Algorithms"]
 
 [dependencies]
 fancy-regex = "0.12.0"
+rand = "0.8.5"
