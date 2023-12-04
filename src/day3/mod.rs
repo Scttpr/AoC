@@ -13,7 +13,7 @@ pub fn run () {
 
     // println!("part A total valid games is {first_total}");
     // println!("part B total combination is {second_total}");
-    println!("\n");
+    // println!("\n");
 }
 
 #[derive(Debug, Clone, PartialEq)]
@@ -108,25 +108,25 @@ fn part_one(engine_schematic: Vec<Vec<char>>) {
                 .count() > 1
             )
             .fold(vec![], |mut gears: Vec<Gear>, part: Part| {
-                println!("in fold");
+                // println!("in fold");
                 let is_already_in = gears.clone().into_iter().position(|gear| gear.id == part.symbol.id);
 
                 if let Some(index) = is_already_in {
-                    println!("is in");
+                    // println!("is in");
                     gears[index].numbers.push(part.value);
                 } else {
-                    println!("not in");
+                    // println!("not in");
                     gears.push(Gear::new(part.symbol.id, vec![part.value]));
                 }
 
                 gears
             });
 
-        println!("{gears:?}");
+        // println!("{gears:?}");
 
         let sum: usize = gears.into_iter().map(|gear| gear.numbers[0] * gear.numbers[1]).sum();
 
-        println!("{sum:?}");
+        // println!("{sum:?}");
 }
 
 fn get_surrounding_symbols(engine_schematic: Vec<Vec<char>>, (x, y): (usize, usize)) -> Vec<Symbol> {
